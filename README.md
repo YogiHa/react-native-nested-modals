@@ -9,7 +9,7 @@
 npm install react-native-modal react-native-nested-modals
 ```
 
-this package use `react-native-modal`, maje sure it installed in your project
+this package use `react-native-modal`, make sure it installed in your project
 ## Usage
 
 ```js
@@ -27,7 +27,7 @@ Inside the wrapped component
 import useNestedModal from 'react-native-nested-modals';
 
 // ...
-  const { open, close, closeAll, registerModals } = useNestedModals();
+const { open, close, closeAll, registerModals } = useNestedModals();
  
 ```
 
