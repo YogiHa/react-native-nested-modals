@@ -24,20 +24,14 @@ import { ModalsProvider } from 'react-native-nested-modals';
 Inside the wrapped component
 
 ```js
-import useNestedModals from 'react-native-nested-modals';
+import useNestedModals, { INestedModalsContext } from 'react-native-nested-modals';
 
 // ...
-const { open, close, closeAll } = useNestedModals();
+const { openModal, closeModal, closeAllModals }: INestedModalsContext = useNestedModals();
  
 ```
 
-## Available methods
 
-| Name                           | Type             | Default                        | Description                                                                                                                                |
-| ------------------------------ | ---------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| open                    | (MyModal: ReactElement, modalProps?: TModalProps) => void |  (**REQUIRED**, {}) => null                   | open a modal
-| close                    | (num?: number) => void |  (1) => null                   | close modal or modals                         
-| closeAll                    | () => void |  () => null                   | close all modals 
 
 
 **To do** - Create method for `MyModal` props manipulation on run time
@@ -46,27 +40,30 @@ const { open, close, closeAll } = useNestedModals();
 
 ```js
 type TModalProps = {
-  withClickOutside?: boolean;
-  onClickOutside?: () => void;
+  withClickOutside?: boolean;  // defalut -> false
+  onClickOutside?: () => void; // defalut -> useNestedModals().close  
 } & Partial<ModalProps>;;
+
+
+interface INestedModalsContext {
+  closeModal: (num?: number) => void; // default -> 1
+  openModal: (MyModal: ReactElement, modalProps?: TModalProps) => void; // default -> **REQUIRED**, {}
+  closeAllModals: () => void;
+}
+
 ```
 
 List of full `react-native-modal` `ModalProps` can be found [here](https://github.com/react-native-modal/react-native-modal/blob/master/README.md)
 
+
 Unlike `react-native-modal`, `isVisibile` alwayes set to `true`, in case you want to close a modal, just call `close` method. 
+
 
 **To do** - Support for `modalProps` manipulation and re-render accords
 
-## Available external modal props
-
-| Name                           | Type             | Default                        | Description                                                                                                                                |
-| ------------------------------ | ---------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| withClickOutside                    | boolean |  false               | determinant if sould listen for click outside modal
-| onClickOutside                    | () => void |  useNestedModals().close               | override default listener
-
-
 
 Full working [example](example/src)
+
 
 ## Contributing
 

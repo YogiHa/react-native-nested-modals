@@ -1,18 +1,20 @@
 import React, { ComponentType } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
-import useNestedModals from 'react-native-nested-modals';
+import useNestedModals, {
+  INestedModalsContext,
+} from 'react-native-nested-modals';
 import ModalA from '../modals/ModalA';
 import ModalB from '../modals/ModalB';
 
 export default function OpenBtns() {
-  const { open, close } = useNestedModals();
+  const { openModal, closeModal }: INestedModalsContext = useNestedModals();
   return (
     <View style={styles.container}>
       <Btn
         backgroundColor={'green'}
         text={'open modal a'}
         onPress={() =>
-          open(<ModalA />, {
+          openModal(<ModalA />, {
             style: { margin: 10 },
           })
         }
@@ -21,12 +23,12 @@ export default function OpenBtns() {
         backgroundColor={'yellow'}
         text={'open modal b'}
         onPress={() =>
-          open(<ModalB />, {
+          openModal(<ModalB />, {
             withClickOutside: true,
           })
         }
       />
-      <Btn backgroundColor={'pink'} text={'close'} onPress={close} />
+      <Btn backgroundColor={'pink'} text={'close'} onPress={closeModal} />
     </View>
   );
 }
