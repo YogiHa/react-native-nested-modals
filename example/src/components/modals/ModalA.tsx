@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import OpenBtns from '../OpenBtns';
 
-export const MODAL_A = 'moadlA';
 export default function ModalA() {
   return (
     <View style={styles.container}>

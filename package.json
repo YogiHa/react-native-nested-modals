@@ -1,6 +1,6 @@
 {
   "name": "react-native-nested-modals",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "react-native-nested-modals",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -78,6 +78,12 @@
       "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "yarn lint && yarn typescript"
+    }
   },
   "commitlint": {
     "extends": [

@@ -1,20 +1,9 @@
-import React, { useEffect } from 'react';
-import useNestedModals, { ModalsProvider } from 'react-native-nested-modals';
+import React from 'react';
+import { ModalsProvider } from 'react-native-nested-modals';
 import { StyleSheet, View, Text } from 'react-native';
-import ModalA, { MODAL_A } from './components/modals/ModalA';
-import ModalB, { MODAL_B } from './components/modals/ModalB';
 import OpenBtns from './components/OpenBtns';
 
 const App = () => {
-  const { registerModals } = useNestedModals();
-
-  useEffect(() => {
-    registerModals([
-      [MODAL_A, ModalA],
-      [MODAL_B, ModalB],
-    ]);
-  }, []);
-
   return (
     <View style={styles.container}>
       <Text>Nested Modals</Text>

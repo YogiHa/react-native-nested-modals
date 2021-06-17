@@ -24,7 +24,7 @@ import { ModalsProvider } from 'react-native-nested-modals';
 Inside the wrapped component
 
 ```js
-import useNestedModal from 'react-native-nested-modals';
+import useNestedModals from 'react-native-nested-modals';
 
 // ...
 const { open, close, closeAll, registerModals } = useNestedModals();
@@ -35,21 +35,19 @@ const { open, close, closeAll, registerModals } = useNestedModals();
 
 | Name                           | Type             | Default                        | Description                                                                                                                                |
 | ------------------------------ | ---------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| open                    | (name: string, modalProps?: PModalProps, props?: any) => void; |  (**REQUIRED**, {}, {}) => void                   | open a modal
-| close                    | (num?: number) => void; |  (1) => void                   | close modal or modals                         
-| closeAll                    | () => void; |  () => void                   | close all modals 
-| registerModals                    | (tuppels: TModalTupple[]) => void |  ([]) => void                   | register new modals 
+| open                    | (MyModal: ComponentType, modalProps?: PModalProps, props?: any) => null |  (**REQUIRED**, {}, {}) => void                   | open a modal
+| close                    | (num?: number) => void |  (1) => null                   | close modal or modals                         
+| closeAll                    | () => void |  () => null                   | close all modals 
 
 ## Speical types
 
 ```js
 type PModalProps = Partial<ModalProps>;
-type TModalTupple = [string, ComponentType];
 ```
 
-list of full `react-native-modal` `ModalProps` can be found [here](https://github.com/react-native-modal/react-native-modal/blob/master/README.md)
+List of full `react-native-modal` `ModalProps` can be found [here](https://github.com/react-native-modal/react-native-modal/blob/master/README.md)
 
-full working [example](example/src)
+Full working [example](example/src)
 
 ## Contributing
 
