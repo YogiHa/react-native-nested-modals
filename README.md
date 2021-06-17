@@ -9,7 +9,7 @@
 npm install react-native-modal react-native-nested-modals
 ```
 
-this package use `react-native-modal`, make sure it installed in your project
+This package built on top `react-native-modal`, make sure it installed in your project
 ## Usage
 
 ```js
@@ -27,7 +27,7 @@ Inside the wrapped component
 import useNestedModals from 'react-native-nested-modals';
 
 // ...
-const { open, close, closeAll, registerModals } = useNestedModals();
+const { open, close, closeAll } = useNestedModals();
  
 ```
 
@@ -35,7 +35,7 @@ const { open, close, closeAll, registerModals } = useNestedModals();
 
 | Name                           | Type             | Default                        | Description                                                                                                                                |
 | ------------------------------ | ---------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| open                    | (MyModal: ComponentType, modalProps?: PModalProps, props?: any) => null |  (**REQUIRED**, {}, {}) => void                   | open a modal
+| open                    | (MyModal: ComponentType, modalProps?: PModalProps, props?: any) => void |  (**REQUIRED**, {}, {}) => null                   | open a modal
 | close                    | (num?: number) => void |  (1) => null                   | close modal or modals                         
 | closeAll                    | () => void |  () => null                   | close all modals 
 
