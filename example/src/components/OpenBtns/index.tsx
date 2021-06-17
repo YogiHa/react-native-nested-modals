@@ -12,8 +12,7 @@ export default function OpenBtns() {
         backgroundColor={'green'}
         text={'open modal a'}
         onPress={() =>
-          open(ModalA, {
-            isVisible: true,
+          open(<ModalA />, {
             style: { margin: 10 },
           })
         }
@@ -22,9 +21,8 @@ export default function OpenBtns() {
         backgroundColor={'yellow'}
         text={'open modal b'}
         onPress={() =>
-          open(ModalB, {
-            isVisible: true,
-            style: { margin: 80 },
+          open(<ModalB />, {
+            withClickOutside: true,
           })
         }
       />

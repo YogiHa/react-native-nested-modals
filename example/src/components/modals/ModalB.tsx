@@ -14,6 +14,7 @@ export default function ModalB() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: 50,
     backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',

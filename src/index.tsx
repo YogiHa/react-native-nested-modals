@@ -1,44 +1,57 @@
 import React, {
   ComponentType,
   createContext,
+  ReactElement,
   ReactNode,
   useCallback,
   useContext,
   useMemo,
   useState,
 } from 'react';
+import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import ReactNativeModal, { ModalProps } from 'react-native-modal';
 
-type PModalProps = Partial<ModalProps>;
+type TModalProps = {
+  withClickOutside?: boolean;
+  onClickOutside?: () => void;
+} & Partial<ModalProps>;
 interface IContext {
   close: (num?: number) => void;
-  open: (MyModal: ComponentType, modalProps?: PModalProps, props?: any) => void;
+  open: (MyModal: ReactElement, modalProps?: TModalProps) => void;
   closeAll: () => void;
 }
 interface IModal {
-  MyModal: ComponentType;
-  modalProps: PModalProps;
-  props: any;
+  MyModal: ReactElement;
+  modalProps: TModalProps;
 }
 
 const MoadlComponent: ComponentType<{
   idx: number;
   modals: IModal[];
-}> = ({ idx, modals }) => {
+  close: () => void;
+}> = ({ close, idx, modals }) => {
   const isNextExist = useMemo<boolean>(
     () => modals.length - 1 > idx,
     [modals.length, idx]
   );
-
-  const { MyModal, modalProps, props } = useMemo<IModal>(
-    () => modals[idx],
-    [idx, modals]
-  );
+  const {
+    MyModal,
+    modalProps: { withClickOutside, onClickOutside = close, ...modalProps },
+  } = useMemo<IModal>(() => modals[idx], [idx, modals]);
 
   return (
-    <ReactNativeModal {...modalProps}>
-      <MyModal {...props} />
-      {isNextExist && <MoadlComponent idx={idx + 1} modals={modals} />}
+    <ReactNativeModal {...modalProps} isVisible>
+      {MyModal}
+
+      {isNextExist && (
+        <MoadlComponent close={close} idx={idx + 1} modals={modals} />
+      )}
+      {withClickOutside && (
+        <TouchableOpacity
+          onPress={onClickOutside}
+          style={styles.clickOutside}
+        />
+      )}
     </ReactNativeModal>
   );
 };
@@ -57,8 +70,8 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
   );
 
   const open = useCallback(
-    (MyModal: ComponentType, modalProps: PModalProps = {}, props: any = {}) =>
-      setModals((prev) => [...prev, { MyModal, modalProps, props }]),
+    (MyModal: ReactElement, modalProps: TModalProps = {}) =>
+      setModals((prev) => [...prev, { MyModal, modalProps }]),
     []
   );
 
@@ -74,7 +87,9 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
   return (
     <modalsContext.Provider value={{ open, close, closeAll }}>
       {children}
-      {isModalsExist && <MoadlComponent modals={modals} idx={0} />}
+      {isModalsExist && (
+        <MoadlComponent close={close} modals={modals} idx={0} />
+      )}
     </modalsContext.Provider>
   );
 };
@@ -82,3 +97,15 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
 const useNestedModals = () => useContext(modalsContext);
 
 export default useNestedModals;
+
+const { height, width } = Dimensions.get('screen');
+const styles = StyleSheet.create({
+  clickOutside: {
+    height,
+    width,
+    flex: 1,
+    position: 'absolute',
+    backgroundColor: 'transparent',
+    zIndex: -1,
+  },
+});
