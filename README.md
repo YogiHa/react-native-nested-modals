@@ -39,7 +39,9 @@ const { open, close, closeAll } = useNestedModals();
 | close                    | (num?: number) => void |  (1) => null                   | close modal or modals                         
 | closeAll                    | () => void |  () => null                   | close all modals 
 
+
 **To do** - Create method for `MyModal` props manipulation on run time
+
 ## Speical types
 
 ```js
@@ -50,8 +52,11 @@ type TModalProps = {
 ```
 
 List of full `react-native-modal` `ModalProps` can be found [here](https://github.com/react-native-modal/react-native-modal/blob/master/README.md)
+
 Unlike `react-native-modal`, `isVisibile` alwayes set to `true`, in case you want to close a modal, just call `close` method. 
+
 **To do** - Support for `modalProps` manipulation and re-render accords
+
 ## Available external modal props
 
 | Name                           | Type             | Default                        | Description                                                                                                                                |
