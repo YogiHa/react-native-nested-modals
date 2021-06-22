@@ -13,11 +13,12 @@ export default function OpenBtns() {
       <Btn
         backgroundColor={'green'}
         text={'open modal a'}
-        onPress={() =>
-          openModal(<ModalA />, {
+        onPress={() => {
+          let newModalAIdx = openModal(<ModalA />, {
             style: { margin: 10 },
-          })
-        }
+          });
+          console.log({ newModalAIdx });
+        }}
       />
       <Btn
         backgroundColor={'yellow'}

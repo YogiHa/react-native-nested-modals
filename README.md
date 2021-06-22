@@ -46,8 +46,8 @@ type TModalProps = {
 
 
 interface INestedModalsContext {
-  closeModal: (num?: number) => void; // default -> 1
-  openModal: (MyModal: ReactElement, modalProps?: TModalProps) => void; // default -> **REQUIRED**, {}
+  closeModal: (idx?: number) => void; // modals.length - 1
+  openModal: (MyModal: ReactElement, modalProps?: TModalProps) => number; // default -> **REQUIRED**, {} => new modal idx
   closeAllModals: () => void;
 }
 

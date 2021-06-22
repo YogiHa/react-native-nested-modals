@@ -17,8 +17,8 @@ export type TModalProps = {
 } & Partial<ModalProps>;
 
 export interface INestedModalsContext {
-  closeModal: (num?: number) => void;
-  openModal: (MyModal: ReactElement, modalProps?: TModalProps) => void;
+  closeModal: (idx?: number) => void;
+  openModal: (MyModal: ReactElement, modalProps?: TModalProps) => number;
   closeAllModals: () => void;
 }
 
@@ -30,7 +30,7 @@ interface IModal {
 const MoadlComponent: ComponentType<{
   idx: number;
   modals: IModal[];
-  closeModal: () => void;
+  closeModal: (idx?: number) => void;
 }> = ({ closeModal, idx, modals }) => {
   const isNextExist = useMemo<boolean>(
     () => modals.length - 1 > idx,
@@ -40,7 +40,7 @@ const MoadlComponent: ComponentType<{
     MyModal,
     modalProps: {
       withClickOutside,
-      onClickOutside = closeModal,
+      onClickOutside = () => closeModal(),
       ...modalProps
     },
   } = useMemo<IModal>(() => modals[idx], [idx, modals]);
@@ -64,7 +64,7 @@ const MoadlComponent: ComponentType<{
 
 const modalsContext = createContext<INestedModalsContext>({
   closeModal: () => {},
-  openModal: () => {},
+  openModal: () => 0,
   closeAllModals: () => {},
 });
 
@@ -76,15 +76,17 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
   );
 
   const openModal = useCallback(
-    (MyModal: ReactElement, modalProps: TModalProps = {}) =>
-      setModals((prev) => [...prev, { MyModal, modalProps }]),
-    []
+    (MyModal: ReactElement, modalProps: TModalProps = {}) => {
+      setModals((prev) => [...prev, { MyModal, modalProps }]);
+      return modals.length;
+    },
+    [modals]
   );
 
-  const closeModal = useCallback((num: number = 1) => {
-    if (typeof num !== 'number') num = 1;
+  const closeModal = useCallback((idx) => {
+    if (typeof idx != 'number') idx = undefined;
     setModals((prev) =>
-      num > prev.length ? [] : prev.slice(0, prev.length - num)
+      prev.filter((_i: IModal, id: number) => id != (idx ?? prev.length - 1))
     );
   }, []);
 
