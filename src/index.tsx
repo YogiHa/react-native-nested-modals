@@ -62,7 +62,7 @@ const MoadlComponent: ComponentType<{
   );
 };
 
-const modalsContext = createContext<INestedModalsContext>({
+export const modalsContext = createContext<INestedModalsContext>({
   closeModal: () => {},
   openModal: () => 0,
   closeAllModals: () => {},

@@ -24,10 +24,16 @@ import { ModalsProvider } from 'react-native-nested-modals';
 Inside the wrapped component
 
 ```js
-import useNestedModals, { INestedModalsContext } from 'react-native-nested-modals';
+import useNestedModals, { INestedModalsContext, modalsContext } from 'react-native-nested-modals';
 
-// ...
+// function component
 const { openModal, closeModal, closeAllModals }: INestedModalsContext = useNestedModals();
+
+// class component
+<modalsContext.Consumer>
+  {( openModal, closeModal, closeAllModals }) => ...}
+</modalsContext.Consumer>
+
  
 ```
 
@@ -42,12 +48,12 @@ const { openModal, closeModal, closeAllModals }: INestedModalsContext = useNeste
 type TModalProps = {
   withClickOutside?: boolean;  // defalut -> false
   onClickOutside?: () => void; // defalut -> useNestedModals().close  
-} & Partial<ModalProps>;;
+} & Partial<ModalProps>;
 
 
 interface INestedModalsContext {
-  closeModal: (idx?: number) => void; // modals.length - 1
-  openModal: (MyModal: ReactElement, modalProps?: TModalProps) => number; // default -> **REQUIRED**, {} => new modal idx
+  closeModal: (idx?: number) => void; // default -> modals.length - 1
+  openModal: (MyModal: ReactElement, modalProps?: TModalProps) => number; // default -> ( **REQUIRED**, {} ) => new modal idx
   closeAllModals: () => void;
 }
 
